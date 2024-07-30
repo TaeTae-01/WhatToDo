@@ -17,7 +17,7 @@ function deleteTodo(event) {
         li.remove();
         todos = todos.filter(todo => todo.id !== parseInt(li.id));
         saveTodos();
-    }, 300); // Match the duration with CSS animation
+    }, 300);
 }
 
 function toggleComplete(event) {
