@@ -65,6 +65,31 @@ main {
     font-weight: 500;
 }
 
+/*list 추가 삭제 animation*/
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
 form {
     display: flex;
     justify-content: center;
@@ -103,6 +128,7 @@ li {
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: white;
+    animation: fadeIn 0.3s ease-out;
 }
 
 .delete-button {
@@ -122,6 +148,11 @@ li {
 
 .completed {
     text-decoration: line-through;
+    color: gray;
+}
+
+li.removing {
+    animation: fadeOut 0.3s ease-out;
 }
 
 /* 다크모드 CSS */
