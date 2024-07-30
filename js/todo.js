@@ -1,81 +1,79 @@
-const toDoForm = document.getElementById("todo-form");
-const toDoInput = document.querySelector("#todo-form input");
-const toDoList = document.getElementById("todo-list");
+const todoForm = document.getElementById('todo-form');
+const todoInput = todoForm.querySelector('input');
+const todoList = document.getElementById('todo-list');
 
-const TODOS_KEY = "todos";
+const TODOS_KEY = 'todos';
 
-let toDos = [];
+let todos = [];
 
-function saveToDos() {
-    localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
+function saveTodos() {
+    localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
 }
 
-function deleteToDo(event) {
+function deleteTodo(event) {
     const li = event.target.parentElement;
-    li.remove();
-    toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
-    saveToDos();
+    li.classList.add('removing');
+    setTimeout(() => {
+        li.remove();
+        todos = todos.filter(todo => todo.id !== parseInt(li.id));
+        saveTodos();
+    }, 300); // Match the duration with CSS animation
 }
 
 function toggleComplete(event) {
     const li = event.target.parentElement;
-    const span = li.querySelector("span");
-    span.classList.toggle("completed");
-
-    toDos = toDos.map(toDo => {
-        if (toDo.id === parseInt(li.id)) {
-            return { ...toDo, completed: !toDo.completed };
-        }
-        return toDo;
-    });
-    saveToDos();
+    const span = li.querySelector('span');
+    const todo = todos.find(todo => todo.id === parseInt(li.id));
+    todo.completed = !todo.completed;
+    span.classList.toggle('completed', todo.completed);
+    saveTodos();
 }
 
-function paintToDo(newTodo) {
-    const li = document.createElement("li");
+function paintTodo(newTodo) {
+    const li = document.createElement('li');
     li.id = newTodo.id;
-    const span = document.createElement("span");
-    span.innerText = newTodo.text;
+
+    const span = document.createElement('span');
+    span.textContent = newTodo.text;
     if (newTodo.completed) {
-        span.classList.add("completed");
+        span.classList.add('completed');
     }
 
-    const deleteButton = document.createElement("button");
-    deleteButton.innerText = "❌";
-    deleteButton.className = "delete-button";
-    deleteButton.addEventListener("click", deleteToDo);
+    const completeButton = document.createElement('button');
+    completeButton.textContent = '✅';
+    completeButton.classList.add('complete-button');
+    completeButton.addEventListener('click', toggleComplete);
 
-    const completeButton = document.createElement("button");
-    completeButton.innerText = "✅";
-    completeButton.className = "complete-button";
-    completeButton.addEventListener("click", toggleComplete);
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = '❌';
+    deleteButton.classList.add('delete-button');
+    deleteButton.addEventListener('click', deleteTodo);
 
     li.appendChild(completeButton);
     li.appendChild(span);
     li.appendChild(deleteButton);
-    toDoList.appendChild(li);
+
+    todoList.appendChild(li);
 }
 
-function handleToDoSubmit(event) {
+function handleTodoSubmit(event) {
     event.preventDefault();
-    const newTodo = toDoInput.value;
-    toDoInput.value = "";
+    const newTodo = todoInput.value;
+    todoInput.value = '';
     const newTodoObj = {
         text: newTodo,
         id: Date.now(),
-        completed: false
+        completed: false,
     };
-    toDos.push(newTodoObj);
-    paintToDo(newTodoObj);
-    saveToDos();
+    todos.push(newTodoObj);
+    paintTodo(newTodoObj);
+    saveTodos();
 }
 
-toDoForm.addEventListener("submit", handleToDoSubmit);
+todoForm.addEventListener('submit', handleTodoSubmit);
 
-const savedToDos = localStorage.getItem(TODOS_KEY);
-
-if (savedToDos !== null) {
-    const parsedToDos = JSON.parse(savedToDos);
-    toDos = parsedToDos;
-    parsedToDos.forEach(paintToDo);
+const savedTodos = localStorage.getItem(TODOS_KEY);
+if (savedTodos) {
+    todos = JSON.parse(savedTodos);
+    todos.forEach(paintTodo);
 }
