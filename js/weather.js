@@ -1,8 +1,9 @@
 const weatherContainer = document.getElementById('weather');
 const weatherSpan = weatherContainer.querySelector('span:last-child');
+const serviceKey = 'ZbTDPHaoJJmi%2Fth1y95CmPQJ6mOBUs4cC6LaceANsGR8dC2KWHG9X60JdH%2FOi98UEDe4wJpDztC4quM5EURH0g%3D%3D';
+
 
 function fetchWeather(nx, ny) {
-    const serviceKey = 'ZbTDPHaoJJmi%2Fth1y95CmPQJ6mOBUs4cC6LaceANsGR8dC2KWHG9X60JdH%2FOi98UEDe4wJpDztC4quM5EURH0g%3D%3D';
     const now = new Date();
     const baseDate = now.toISOString().slice(0, 10).replace(/-/g, '');
     const baseTime = ('0' + now.getHours()).slice(-2) + '00';
