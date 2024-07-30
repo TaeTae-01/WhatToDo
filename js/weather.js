@@ -1,14 +1,21 @@
 const weatherContainer = document.getElementById('weather');
 const weatherSpan = weatherContainer.querySelector('span:last-child');
-const serviceKey = 'ZbTDPHaoJJmi%2Fth1y95CmPQJ6mOBUs4cC6LaceANsGR8dC2KWHG9X60JdH%2FOi98UEDe4wJpDztC4quM5EURH0g%3D%3D';
-
+const serviceKey = decodeURIComponent('ZbTDPHaoJJmi%2Fth1y95CmPQJ6mOBUs4cC6LaceANsGR8dC2KWHG9X60JdH%2FOi98UEDe4wJpDztC4quM5EURH0g%3D%3D');
 
 function fetchWeather(nx, ny) {
     const now = new Date();
     const baseDate = now.toISOString().slice(0, 10).replace(/-/g, '');
-    const baseTime = ('0' + now.getHours()).slice(-2) + '00';
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    let baseTime;
 
-    const url = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
+    if (minutes < 30) {
+        baseTime = ('0' + (hours - 1)).slice(-2) + '30';
+    } else {
+        baseTime = ('0' + hours).slice(-2) + '30';
+    }
+
+    const url = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
 
     fetch(url)
         .then(response => response.json())
