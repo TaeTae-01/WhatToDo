@@ -1,12 +1,8 @@
-// 환경 변수 사용을 위해 dotenv 패키지 로드
-import dotenv from 'dotenv';
-dotenv.config();
-
 const weatherContainer = document.getElementById('weather');
 const weatherSpan = weatherContainer.querySelector('span:last-child');
 
-// API 키를 환경 변수에서 가져옴
-const serviceKey = process.env.WEATHER_API_KEY;
+// API 키를 직접 코드에 삽입
+const serviceKey = 'ZbTDPHaoJJmi%2Fth1y95CmPQJ6mOBUs4cC6LaceANsGR8dC2KWHG9X60JdH%2FOi98UEDe4wJpDztC4quM5EURH0g%3D%3D';
 
 function fetchWeather(nx, ny) {
     const now = new Date();
@@ -65,7 +61,6 @@ function toGridCoordinates(lat, lon) {
     const YO = 136;
 
     const DEGRAD = Math.PI / 180.0;
-    const RADDEG = 180.0 / Math.PI;
 
     const re = RE / GRID;
     const slat1 = SLAT1 * DEGRAD;
