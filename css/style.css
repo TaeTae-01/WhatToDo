@@ -1,0 +1,216 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #FAFAFA;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #FF6347;
+    color: white;
+}
+
+#weather {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+#weather span {
+    margin: 0 5px;
+}
+
+#title {
+    position: absolute;
+    left: 45%;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.mode-toggle {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+#clock {
+    margin-top: -50px;
+    margin-bottom: 20px;
+    font-size: 85px;
+    font-weight: 500;
+}
+
+/*list 추가 삭제 animation*/
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.todo-form-input {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background: white;
+}
+
+#todo-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    width: 80%;
+    list-style: none;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.delete-button {
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.complete-button {
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+li.removing {
+    animation: fadeOut 0.3s ease-out;
+}
+
+/* 다크모드 CSS */
+
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+body.dark-mode header {
+    background-color: #333;
+}
+
+body.dark-mode .todo-form-input,
+body.dark-mode li {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+
+    #title {
+        font-size: 18px;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    #clock {
+        font-size: 60px;
+        margin-top: 0;
+    }
+
+    form {
+        flex-direction: column;
+        width: 90%;
+        margin-bottom: 10px;
+    }
+
+    .todo-form-input {
+        width: 100%;
+        height: 35px;
+    }
+
+    li {
+        width: 90%;
+        padding: 8px;
+        margin-bottom: 6px;
+    }
+}
